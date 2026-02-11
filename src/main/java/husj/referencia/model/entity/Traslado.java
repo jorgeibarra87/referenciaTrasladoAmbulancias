@@ -21,6 +21,8 @@ public class Traslado {
     private LocalDateTime fechaTraslado;
     @Column(name = "NOM_PACIENTE", nullable = false, length = 150)
     private String nomPaciente;
+    @Column(name = "DOCUMENTO", nullable = false, length = 255)
+    private String documento;
     @Column(name = "INGRESO", nullable = false, length = 20)
     private String ingreso;
     @Column(name = "EPS", nullable = false, length = 150)
