@@ -1,5 +1,7 @@
 package husj.referencia.model.dto.request;
 
+import husj.referencia.model.entity.Archivo;
+import husj.referencia.model.entity.TipoTraslado;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -31,8 +33,8 @@ public class TrasladoRequestDTO {
     @NotBlank(message = "La EPS es obligatoria")
     private String eps;
 
-    @NotBlank(message = "El tipo de traslado es obligatorio")
-    private String tipoTraslado;
+    @NotNull(message = "El tipo de traslado es obligatorio")
+    private TipoTraslado tipoTraslado;
 
     @NotBlank(message = "El servicio es obligatorio")
     private String servicio;
@@ -51,6 +53,8 @@ public class TrasladoRequestDTO {
 
     private List<String> medicamentos;
 
-    @NotNull(message = "La fecha de archivo es obligatoria")
-    private LocalDateTime fechaArchivo;
+    @NotNull(message = "El archivo es obligatorio")
+    private Archivo archivo;
+    private String observaciones;
+    private String estado;
 }

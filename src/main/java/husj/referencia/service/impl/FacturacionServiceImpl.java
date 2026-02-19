@@ -25,11 +25,19 @@ public class FacturacionServiceImpl implements FacturacionService {
     private final ModelMapper modelMapper;
 
     @Override
+    @Transactional
     public FacturacionResponseDTO crear(FacturacionRequestDTO request) {
+
         Traslado traslado = trasladoRepository.findById(request.getTrasladoId())
                 .orElseThrow(() -> new EntityNotFoundException("Traslado no encontrado con id: " + request.getTrasladoId()));
-
-        Facturacion entity = modelMapper.map(request, Facturacion.class);
+        Facturacion entity = new Facturacion();
+        entity.setFechaPrefactura(request.getFechaPrefactura());
+        entity.setPrefactura(request.getPrefactura());
+        entity.setProduccion(request.getProduccion());
+        entity.setFechaFactura(request.getFechaFactura());
+        entity.setFactura(request.getFactura());
+        entity.setValor(request.getValor());
+        entity.setNombreFacturador(request.getNombreFacturador());
         entity.setTraslado(traslado);
 
         Facturacion guardado = facturacionRepository.save(entity);

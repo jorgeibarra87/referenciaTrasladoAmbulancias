@@ -3,27 +3,14 @@ package husj.referencia.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
 
-import java.util.List;
-
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -36,20 +23,51 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .httpBasic(httpBasic -> httpBasic.disable()) // <-- Deshabilita la autenticación Basic
-                .formLogin(formLogin -> formLogin.disable()) // <-- Deshabilita la autenticación de formulario
+                .httpBasic(httpBasic -> httpBasic.disable())
+                .formLogin(formLogin -> formLogin.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> {
-                            authorizeRequests.requestMatchers(AUTH_WHITLIST).permitAll();
-                            authorizeRequests.requestMatchers(HttpMethod.GET, "/datos/**").hasAnyRole("ADMINISTRADOR", "REFERENCIA_EXPORTAR_DATA", "REFERENCIA_FORMULARIO", "REFERENCIA_MODIFICAR_DATA","REFERENCIA_COMENTARIO_TRIAGE");
-                            authorizeRequests.requestMatchers(HttpMethod.PUT, "/datos/actualizar-ingresos").hasAnyRole("ADMINISTRADOR", "REFERENCIA_EXPORTAR_DATA", "REFERENCIA_MODIFICAR_DATA","REFERENCIA_COMENTARIO_TRIAGE");
-                            authorizeRequests.requestMatchers(HttpMethod.PUT, "/datos/observacion-triage/**").hasAnyRole("ADMINISTRADOR", "REFERENCIA_COMENTARIO_TRIAGE");
-                            authorizeRequests.requestMatchers(HttpMethod.PUT, "/datos/comentario").hasAnyRole("ADMINISTRADOR", "REFERENCIA_MODIFICAR_DATA");
-                            authorizeRequests.requestMatchers(HttpMethod.POST, "/datos/**").hasAnyRole("ADMINISTRADOR", "REFERENCIA_FORMULARIO");
+                            // ENDPOINTS PÚBLICOS (para pruebas)
+                            authorizeRequests
+                                    .requestMatchers(
+                                            "/traslados/**",
+                                            "/facturaciones/**",
+                                            "/cuentas-medicas/**",
+                                            "/error"
+                                    ).permitAll();
+
+                            // Autenticación / swagger
+                            authorizeRequests
+                                    .requestMatchers(AUTH_WHITLIST).permitAll();
+
+                            // Resto de tus reglas antiguas (si quieres mantenerlas)
+                            authorizeRequests
+                                    .requestMatchers(HttpMethod.GET, "/datos/**")
+                                    .hasAnyRole("ADMINISTRADOR", "REFERENCIA_EXPORTAR_DATA", "REFERENCIA_FORMULARIO", "REFERENCIA_MODIFICAR_DATA","REFERENCIA_COMENTARIO_TRIAGE");
+
+                            authorizeRequests
+                                    .requestMatchers(HttpMethod.PUT, "/datos/actualizar-ingresos")
+                                    .hasAnyRole("ADMINISTRADOR", "REFERENCIA_EXPORTAR_DATA", "REFERENCIA_MODIFICAR_DATA","REFERENCIA_COMENTARIO_TRIAGE");
+
+                            authorizeRequests
+                                    .requestMatchers(HttpMethod.PUT, "/datos/observacion-triage/**")
+                                    .hasAnyRole("ADMINISTRADOR", "REFERENCIA_COMENTARIO_TRIAGE");
+
+                            authorizeRequests
+                                    .requestMatchers(HttpMethod.PUT, "/datos/comentario")
+                                    .hasAnyRole("ADMINISTRADOR", "REFERENCIA_MODIFICAR_DATA");
+
+                            authorizeRequests
+                                    .requestMatchers(HttpMethod.POST, "/datos/**")
+                                    .hasAnyRole("ADMINISTRADOR", "REFERENCIA_FORMULARIO");
+
+                            // CUALQUIER OTRO ENDPOINT REQUIERE AUTENTICACIÓN
                             authorizeRequests.anyRequest().authenticated();
                         }
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                // Si quieres que /api/** sea completamente libre mientras pruebas,
+                // puedes comentar temporalmente el filtro JWT:
+                // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
@@ -61,9 +79,6 @@ public class SecurityConfig {
             "/swagger-ui.html"
     };
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return username -> null; // Esto desactiva el UserDetailsService por defecto
-    }
-
+    // Mientras usas JWT, puedes eliminar este bean o dejar que Spring cree el AuthenticationManager según tu auth real.
+    // Si de verdad no usas UserDetailsService, simplemente quita este método.
 }

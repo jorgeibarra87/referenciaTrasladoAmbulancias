@@ -22,8 +22,26 @@ public class TrasladoServiceImpl implements TrasladoService {
     private final ModelMapper modelMapper;
 
     @Override
+    @Transactional
     public TrasladoResponseDTO crear(TrasladoRequestDTO request) {
-        Traslado entity = modelMapper.map(request, Traslado.class);
+        Traslado entity = new Traslado();
+        entity.setFechaTraslado(request.getFechaTraslado());
+        entity.setNomPaciente(request.getNomPaciente());
+        entity.setDocumento(request.getDocumento());
+        entity.setIngreso(request.getIngreso());
+        entity.setEps(request.getEps());
+        entity.setTipoTraslado(request.getTipoTraslado());
+        entity.setServicio(request.getServicio());
+        entity.setDestino(request.getDestino());
+        entity.setCiudad(request.getCiudad());
+        entity.setAutorizacion(request.getAutorizacion());
+        entity.setAuxiliarReferencia(request.getAuxiliarReferencia());
+        entity.setAuxiliarAmbulancia(request.getAuxiliarAmbulancia());
+        entity.setMedicamentos(request.getMedicamentos());
+        entity.setArchivo(request.getArchivo());
+        entity.setObservaciones(request.getObservaciones());
+        entity.setEstado(request.getEstado());
+
         Traslado guardado = trasladoRepository.save(entity);
         return modelMapper.map(guardado, TrasladoResponseDTO.class);
     }

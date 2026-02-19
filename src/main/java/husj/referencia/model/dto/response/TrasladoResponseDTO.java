@@ -1,5 +1,7 @@
 package husj.referencia.model.dto.response;
 
+import husj.referencia.model.entity.Archivo;
+import husj.referencia.model.entity.TipoTraslado;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -22,7 +24,7 @@ public class TrasladoResponseDTO {
     private String documento;
     private String ingreso;
     private String eps;
-    private String tipoTraslado;
+    private TipoTraslado tipoTraslado;
     private String servicio;
     private String destino;
     private String ciudad;
@@ -30,5 +32,7 @@ public class TrasladoResponseDTO {
     private String auxiliarReferencia;
     private String auxiliarAmbulancia;
     private List<String> medicamentos;
-    private LocalDateTime fechaArchivo;
+    private Archivo archivo;
+    private  String observaciones;
+    private  String estado;
 }

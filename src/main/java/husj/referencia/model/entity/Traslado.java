@@ -27,8 +27,9 @@ public class Traslado {
     private String ingreso;
     @Column(name = "EPS", nullable = false, length = 150)
     private String eps;
-    @Column(name = "TIPO_TRASLADO", nullable = false, length = 255)
-    private String tipoTraslado;
+    @Column(name = "TIPO_TRASLADO", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TipoTraslado tipoTraslado;
     @Column(name = "SERVICIO", nullable = false, length = 255)
     private String servicio;
     @Column(name = "DESTINO", nullable = false, length = 255)
@@ -43,7 +44,12 @@ public class Traslado {
     private String auxiliarAmbulancia;
     @Column(name = "MEDICAMENTOS", nullable = false, length = 255)
     private List<String> medicamentos;
-    @Column(name = "FECHA_ARCHIVO", nullable = false)
-    private LocalDateTime fechaArchivo;
+    @Column(name = "ARCHIVO", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Archivo archivo;
+    @Column(name = "OBSERVACIONES", columnDefinition = "TEXT")
+    private String observaciones;
+    @Column(name = "ESTADO", nullable = false)
+    private String estado;
 
 }

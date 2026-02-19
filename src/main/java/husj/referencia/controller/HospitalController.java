@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
-@SecurityRequirement(name = "Bearer Authentication")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/hospitales")
 @Tag(name = "Hospitales", description = "Operaciones para realizar consultas de información de hospitales en referencia")
