@@ -1,6 +1,8 @@
 package husj.referencia.config;
 
+import husj.referencia.model.dto.response.CuentaMedicaResponseDTO;
 import husj.referencia.model.dto.response.FacturacionResponseDTO;
+import husj.referencia.model.entity.CuentaMedica;
 import husj.referencia.model.entity.Facturacion;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,12 @@ public class MapperConfig {
                 .addMappings(m -> {
                     m.map(src -> src.getTraslado().getDocumento(),   FacturacionResponseDTO::setDocumento);
                     m.map(src -> src.getTraslado().getNomPaciente(), FacturacionResponseDTO::setNomPaciente);
+                });
+
+        mapper.typeMap(CuentaMedica.class, CuentaMedicaResponseDTO.class)
+                .addMappings(m -> {
+                    m.map(src -> src.getTraslado().getDocumento(),   CuentaMedicaResponseDTO::setDocumento);
+                    m.map(src -> src.getTraslado().getNomPaciente(), CuentaMedicaResponseDTO::setNomPaciente);
                 });
 
         return mapper;

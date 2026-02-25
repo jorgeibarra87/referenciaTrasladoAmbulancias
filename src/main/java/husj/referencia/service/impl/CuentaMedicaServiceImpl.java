@@ -62,14 +62,15 @@ public class CuentaMedicaServiceImpl implements CuentaMedicaService {
         CuentaMedica entity = cuentaMedicaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cuenta médica no encontrada con id: " + id));
 
-        if (request.getTrasladoId() != null &&
-                !request.getTrasladoId().equals(entity.getTraslado().getId())) {
+        if (request.getTrasladoId() != null && !request.getTrasladoId().equals(entity.getTraslado().getId())) {
             Traslado traslado = trasladoRepository.findById(request.getTrasladoId())
                     .orElseThrow(() -> new EntityNotFoundException("Traslado no encontrado con id: " + request.getTrasladoId()));
             entity.setTraslado(traslado);
         }
-
-        modelMapper.map(request, entity);
+        entity.setFechaCuenta(request.getFechaCuenta());
+        entity.setServicioEgreso(request.getServicioEgreso());
+        entity.setResponsableAuditoria(request.getResponsableAuditoria());
+        entity.setObservaciones(request.getObservaciones());
 
         CuentaMedica actualizada = cuentaMedicaRepository.save(entity);
         return modelMapper.map(actualizada, CuentaMedicaResponseDTO.class);

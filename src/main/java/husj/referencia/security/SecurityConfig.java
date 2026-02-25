@@ -30,6 +30,7 @@ public class SecurityConfig {
                             // ENDPOINTS PÚBLICOS (para pruebas)
                             authorizeRequests
                                     .requestMatchers(
+                                            "/traslados-completos/**",
                                             "/traslados/**",
                                             "/facturaciones/**",
                                             "/cuentas-medicas/**",
