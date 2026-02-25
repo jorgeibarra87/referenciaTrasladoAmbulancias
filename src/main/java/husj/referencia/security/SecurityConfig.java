@@ -78,7 +78,4 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/swagger-ui.html"
     };
-
-    // Mientras usas JWT, puedes eliminar este bean o dejar que Spring cree el AuthenticationManager según tu auth real.
-    // Si de verdad no usas UserDetailsService, simplemente quita este método.
 }

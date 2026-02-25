@@ -40,8 +40,11 @@ public class TrasladoServiceImpl implements TrasladoService {
         entity.setMedicamentos(request.getMedicamentos());
         entity.setArchivo(request.getArchivo());
         entity.setObservaciones(request.getObservaciones());
-        entity.setEstado(request.getEstado());
-
+        if (request.getEstado() == null || request.getEstado() == ""){
+            entity.setEstado("PENDIENTE");
+        }else{
+            entity.setEstado(request.getEstado());
+        }
         Traslado guardado = trasladoRepository.save(entity);
         return modelMapper.map(guardado, TrasladoResponseDTO.class);
     }
@@ -72,6 +75,14 @@ public class TrasladoServiceImpl implements TrasladoService {
 
         Traslado actualizado = trasladoRepository.save(entity);
         return modelMapper.map(actualizado, TrasladoResponseDTO.class);
+    }
+
+    @Override
+    public TrasladoResponseDTO cambiarEstado(Long id, String estado) {
+        Traslado entity = trasladoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Traslado no encontrado con id: " + id));
+        entity.setEstado(estado);
+        return modelMapper.map(trasladoRepository.save(entity), TrasladoResponseDTO.class);
     }
 
     @Override

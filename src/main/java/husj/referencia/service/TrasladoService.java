@@ -15,5 +15,7 @@ public interface TrasladoService {
 
     TrasladoResponseDTO actualizar(Long id, TrasladoRequestDTO request);
 
+    TrasladoResponseDTO cambiarEstado(Long id, String estado);
+
     void eliminar(Long id);
 }

@@ -17,6 +17,8 @@ public class CuentaMedicaResponseDTO {
 
     private Long id;
     private Long trasladoId;
+    private String documento;
+    private String nomPaciente;
     private LocalDateTime fechaCuenta;
     private String servicioEgreso;
     private String responsableAuditoria;

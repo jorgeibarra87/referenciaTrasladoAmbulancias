@@ -65,18 +65,23 @@ public class FacturacionServiceImpl implements FacturacionService {
         Facturacion entity = facturacionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Facturación no encontrada con id: " + id));
 
-        if (request.getTrasladoId() != null &&
-                !request.getTrasladoId().equals(entity.getTraslado().getId())) {
+        if (request.getTrasladoId() != null && !request.getTrasladoId().equals(entity.getTraslado().getId())) {
             Traslado traslado = trasladoRepository.findById(request.getTrasladoId())
                     .orElseThrow(() -> new EntityNotFoundException("Traslado no encontrado con id: " + request.getTrasladoId()));
             entity.setTraslado(traslado);
         }
-
-        modelMapper.map(request, entity);
+        entity.setFechaPrefactura(request.getFechaPrefactura());
+        entity.setPrefactura(request.getPrefactura());
+        entity.setProduccion(request.getProduccion());
+        entity.setFechaFactura(request.getFechaFactura());
+        entity.setFactura(request.getFactura());
+        entity.setValor(request.getValor());
+        entity.setNombreFacturador(request.getNombreFacturador());
 
         Facturacion actualizada = facturacionRepository.save(entity);
         return modelMapper.map(actualizada, FacturacionResponseDTO.class);
     }
+
 
     @Override
     public void eliminar(Long id) {

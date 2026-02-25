@@ -17,6 +17,8 @@ public class FacturacionResponseDTO {
 
     private Long id;
     private Long trasladoId;
+    private String documento;
+    private String nomPaciente;
     private LocalDateTime fechaPrefactura;
     private String prefactura;
     private String produccion;

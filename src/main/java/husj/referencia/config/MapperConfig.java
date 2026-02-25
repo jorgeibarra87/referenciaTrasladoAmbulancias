@@ -1,5 +1,7 @@
 package husj.referencia.config;
 
+import husj.referencia.model.dto.response.FacturacionResponseDTO;
+import husj.referencia.model.entity.Facturacion;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,11 @@ public class MapperConfig {
         mapper.getConfiguration()
                 .setFieldMatchingEnabled(true)
                 .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
+        mapper.typeMap(Facturacion.class, FacturacionResponseDTO.class)
+                .addMappings(m -> {
+                    m.map(src -> src.getTraslado().getDocumento(),   FacturacionResponseDTO::setDocumento);
+                    m.map(src -> src.getTraslado().getNomPaciente(), FacturacionResponseDTO::setNomPaciente);
+                });
 
         return mapper;
     }
