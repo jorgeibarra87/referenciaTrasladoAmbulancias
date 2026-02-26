@@ -24,6 +24,7 @@ public class MapperConfig {
                 .addMappings(m -> {
                     m.map(src -> src.getTraslado().getDocumento(),   FacturacionResponseDTO::setDocumento);
                     m.map(src -> src.getTraslado().getNomPaciente(), FacturacionResponseDTO::setNomPaciente);
+
                 });
 
         mapper.typeMap(CuentaMedica.class, CuentaMedicaResponseDTO.class)
