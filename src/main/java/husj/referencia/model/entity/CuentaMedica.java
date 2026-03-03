@@ -26,4 +26,6 @@ public class CuentaMedica {
     private String responsableAuditoria;
     @Column(name = "OBSERVACIONES", columnDefinition = "TEXT")
     private String observaciones;
+    @Column(name = "ESTADO", nullable = false)
+    private String estado;
 }

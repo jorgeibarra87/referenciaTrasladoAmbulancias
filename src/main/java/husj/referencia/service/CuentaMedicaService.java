@@ -15,5 +15,7 @@ public interface CuentaMedicaService {
 
     CuentaMedicaResponseDTO actualizar(Long id, CuentaMedicaRequestDTO request);
 
+    CuentaMedicaResponseDTO cambiarEstado(Long id, String estado);
+
     void eliminar(Long id);
 }

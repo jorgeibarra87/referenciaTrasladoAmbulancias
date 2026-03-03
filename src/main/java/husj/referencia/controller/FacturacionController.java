@@ -46,6 +46,13 @@ public class FacturacionController {
         return ResponseEntity.ok(respuesta);
     }
 
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<FacturacionResponseDTO> cambiarEstado(
+            @PathVariable Long id,
+            @RequestParam String estado) {
+        return ResponseEntity.ok(facturacionService.cambiarEstado(id, estado));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         facturacionService.eliminar(id);

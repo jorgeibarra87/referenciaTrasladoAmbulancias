@@ -32,4 +32,6 @@ public class Facturacion {
     private Double valor;
     @Column(name = "NOMBRE_FACTURADOR", nullable = false, length = 255)
     private String nombreFacturador;
+    @Column(name = "ESTADO", nullable = false)
+    private String estado;
 }

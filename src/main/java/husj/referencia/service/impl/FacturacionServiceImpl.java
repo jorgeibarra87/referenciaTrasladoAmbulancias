@@ -39,6 +39,11 @@ public class FacturacionServiceImpl implements FacturacionService {
         entity.setValor(request.getValor());
         entity.setNombreFacturador(request.getNombreFacturador());
         entity.setTraslado(traslado);
+        if (request.getEstado() == null || request.getEstado() == ""){
+            entity.setEstado("PENDIENTE");
+        }else{
+            entity.setEstado(request.getEstado());
+        }
 
         Facturacion guardado = facturacionRepository.save(entity);
         return modelMapper.map(guardado, FacturacionResponseDTO.class);
@@ -77,9 +82,18 @@ public class FacturacionServiceImpl implements FacturacionService {
         entity.setFactura(request.getFactura());
         entity.setValor(request.getValor());
         entity.setNombreFacturador(request.getNombreFacturador());
+        entity.setEstado(request.getEstado());
 
         Facturacion actualizada = facturacionRepository.save(entity);
         return modelMapper.map(actualizada, FacturacionResponseDTO.class);
+    }
+
+    @Override
+    public  FacturacionResponseDTO cambiarEstado(Long id, String estado) {
+        Facturacion entity = facturacionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("facturacion no encontrada con id: " + id));
+        entity.setEstado(estado);
+        return modelMapper.map(facturacionRepository.save(entity),  FacturacionResponseDTO.class);
     }
 
 

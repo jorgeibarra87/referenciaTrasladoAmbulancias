@@ -15,5 +15,7 @@ public interface FacturacionService {
 
     FacturacionResponseDTO actualizar(Long id, FacturacionRequestDTO request);
 
+    FacturacionResponseDTO cambiarEstado(Long id, String estado);
+
     void eliminar(Long id);
 }

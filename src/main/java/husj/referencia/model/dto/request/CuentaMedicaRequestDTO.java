@@ -25,4 +25,5 @@ public class CuentaMedicaRequestDTO {
     private String responsableAuditoria;
 
     private String observaciones;
+    private String estado;
 }

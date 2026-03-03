@@ -77,6 +77,14 @@ public class CuentaMedicaServiceImpl implements CuentaMedicaService {
     }
 
     @Override
+    public CuentaMedicaResponseDTO cambiarEstado(Long id, String estado) {
+        CuentaMedica entity = cuentaMedicaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("cuenta no encontrada con id: " + id));
+        entity.setEstado(estado);
+        return modelMapper.map(cuentaMedicaRepository.save(entity), CuentaMedicaResponseDTO.class);
+    }
+
+    @Override
     public void eliminar(Long id) {
         if (!cuentaMedicaRepository.existsById(id)) {
             throw new EntityNotFoundException("Cuenta médica no encontrada con id: " + id);

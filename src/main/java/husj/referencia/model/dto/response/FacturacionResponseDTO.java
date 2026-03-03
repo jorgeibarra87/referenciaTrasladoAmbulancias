@@ -27,4 +27,5 @@ public class FacturacionResponseDTO {
     private String factura;
     private Double valor;
     private String nombreFacturador;
+    private String estado;
 }

@@ -2,6 +2,7 @@ package husj.referencia.controller;
 
 import husj.referencia.model.dto.request.CuentaMedicaRequestDTO;
 import husj.referencia.model.dto.response.CuentaMedicaResponseDTO;
+import husj.referencia.model.dto.response.TrasladoResponseDTO;
 import husj.referencia.service.CuentaMedicaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,13 @@ public class CuentaMedicaController {
     ) {
         CuentaMedicaResponseDTO respuesta = cuentaMedicaService.actualizar(id, request);
         return ResponseEntity.ok(respuesta);
+    }
+
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<CuentaMedicaResponseDTO> cambiarEstado(
+            @PathVariable Long id,
+            @RequestParam String estado) {
+        return ResponseEntity.ok(cuentaMedicaService.cambiarEstado(id, estado));
     }
 
     @DeleteMapping("/{id}")
