@@ -21,7 +21,8 @@ public class FacturacionController {
     private final FacturacionService facturacionService;
 
     @Operation(summary = "Crear facturación",
-            description = "Permite crear nuevos registros de facturación.")
+            description = "Permite crear nuevos registros de facturación.",
+            tags={"Facturación"})
     @PostMapping
     public ResponseEntity<FacturacionResponseDTO> crear(@Valid @RequestBody FacturacionRequestDTO request) {
         FacturacionResponseDTO respuesta = facturacionService.crear(request);
@@ -29,7 +30,8 @@ public class FacturacionController {
     }
 
     @Operation(summary = "Obtener facturación por ID",
-            description = "Recupera la información completa de una facturación específica por su identificador único.")
+            description = "Recupera la información completa de una facturación específica por su identificador único.",
+            tags={"Facturación"})
     @GetMapping("/{id}")
     public ResponseEntity<FacturacionResponseDTO> obtenerPorId(@PathVariable Long id) {
         FacturacionResponseDTO respuesta = facturacionService.obtenerPorId(id);
@@ -37,7 +39,8 @@ public class FacturacionController {
     }
 
     @Operation(summary = "Listar todas las facturaciones",
-            description = "Obtiene la lista completa de todas las facturaciones registradas en el sistema.")
+            description = "Obtiene la lista completa de todas las facturaciones registradas en el sistema.",
+            tags={"Facturación"})
     @GetMapping
     public ResponseEntity<List<FacturacionResponseDTO>> listarTodos() {
         List<FacturacionResponseDTO> lista = facturacionService.listarTodos();
@@ -45,7 +48,8 @@ public class FacturacionController {
     }
 
     @Operation(summary = "Actualizar facturación",
-            description = "Actualiza completamente la información de una facturación existente por su ID.")
+            description = "Actualiza completamente la información de una facturación existente por su ID.",
+            tags={"Facturación"})
     @PutMapping("/{id}")
     public ResponseEntity<FacturacionResponseDTO> actualizar(
             @PathVariable Long id,
@@ -56,7 +60,8 @@ public class FacturacionController {
     }
 
     @Operation(summary = "Cambiar estado de facturación",
-            description = "Modifica únicamente el estado de una facturación específica mediante su ID y el nuevo estado.")
+            description = "Modifica únicamente el estado de una facturación específica mediante su ID y el nuevo estado.",
+            tags={"Facturación"})
     @PatchMapping("/{id}/estado")
     public ResponseEntity<FacturacionResponseDTO> cambiarEstado(
             @PathVariable Long id,
@@ -65,7 +70,8 @@ public class FacturacionController {
     }
 
     @Operation(summary = "Eliminar facturación",
-            description = "Elimina permanentemente una facturación del sistema por su identificador único.")
+            description = "Elimina permanentemente una facturación del sistema por su identificador único.",
+            tags={"Facturación"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         facturacionService.eliminar(id);

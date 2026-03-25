@@ -22,7 +22,8 @@ public class CuentaMedicaController {
     private final CuentaMedicaService cuentaMedicaService;
 
     @Operation(summary = "Crear cuentas medicas",
-            description = "Permite crear nuevos registros de cuentas medicas.")
+            description = "Permite crear nuevos registros de cuentas medicas.",
+            tags={"Cuentas Médicas"})
     @PostMapping
     public ResponseEntity<CuentaMedicaResponseDTO> crear(@Valid @RequestBody CuentaMedicaRequestDTO request) {
         CuentaMedicaResponseDTO respuesta = cuentaMedicaService.crear(request);
@@ -30,7 +31,8 @@ public class CuentaMedicaController {
     }
 
     @Operation(summary = "Obtener cuenta medica por ID",
-            description = "Recupera la información completa de una cuenta medica específica por su identificador único.")
+            description = "Recupera la información completa de una cuenta medica específica por su identificador único.",
+            tags={"Cuentas Médicas"})
     @GetMapping("/{id}")
     public ResponseEntity<CuentaMedicaResponseDTO> obtenerPorId(@PathVariable Long id) {
         CuentaMedicaResponseDTO respuesta = cuentaMedicaService.obtenerPorId(id);
@@ -38,7 +40,8 @@ public class CuentaMedicaController {
     }
 
     @Operation(summary = "Listar todas las cuentas medicas",
-            description = "Obtiene la lista completa de todas las cuentas medicas registradas en el sistema.")
+            description = "Obtiene la lista completa de todas las cuentas medicas registradas en el sistema.",
+            tags={"Cuentas Médicas"})
     @GetMapping
     public ResponseEntity<List<CuentaMedicaResponseDTO>> listarTodos() {
         List<CuentaMedicaResponseDTO> lista = cuentaMedicaService.listarTodos();
@@ -46,7 +49,8 @@ public class CuentaMedicaController {
     }
 
     @Operation(summary = "Actualizar cuenta medica",
-            description = "Actualiza completamente la información de una cuenta medica existente por su ID.")
+            description = "Actualiza completamente la información de una cuenta medica existente por su ID.",
+            tags={"Cuentas Médicas"})
     @PutMapping("/{id}")
     public ResponseEntity<CuentaMedicaResponseDTO> actualizar(
             @PathVariable Long id,
@@ -57,7 +61,8 @@ public class CuentaMedicaController {
     }
 
     @Operation(summary = "Cambiar estado de cuenta medica",
-            description = "Modifica únicamente el estado de una cuenta medica específica mediante su ID y el nuevo estado.")
+            description = "Modifica únicamente el estado de una cuenta medica específica mediante su ID y el nuevo estado.",
+            tags={"Cuentas Médicas"})
     @PatchMapping("/{id}/estado")
     public ResponseEntity<CuentaMedicaResponseDTO> cambiarEstado(
             @PathVariable Long id,
@@ -66,7 +71,8 @@ public class CuentaMedicaController {
     }
 
     @Operation(summary = "Eliminar cuenta medica",
-            description = "Elimina permanentemente una cuenta medica del sistema por su identificador único.")
+            description = "Elimina permanentemente una cuenta medica del sistema por su identificador único.",
+            tags={"Cuentas Médicas"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         cuentaMedicaService.eliminar(id);

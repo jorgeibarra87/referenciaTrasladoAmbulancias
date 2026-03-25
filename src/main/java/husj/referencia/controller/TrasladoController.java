@@ -21,7 +21,8 @@ public class TrasladoController {
     private final TrasladoService trasladoService;
 
     @Operation(summary = "Crear traslado",
-            description = "Permite crear nuevos registros de traslados.")
+            description = "Permite crear nuevos registros de traslados.",
+            tags={"Traslados"})
     @PostMapping
     public ResponseEntity<TrasladoResponseDTO> crear(@Valid @RequestBody TrasladoRequestDTO request) {
         TrasladoResponseDTO respuesta = trasladoService.crear(request);
@@ -29,7 +30,8 @@ public class TrasladoController {
     }
 
     @Operation(summary = "Obtener traslado por ID",
-            description = "Recupera la información completa de un traslado específico por su identificador único.")
+            description = "Recupera la información completa de un traslado específico por su identificador único.",
+            tags={"Traslados"})
     @GetMapping("/{id}")
     public ResponseEntity<TrasladoResponseDTO> obtenerPorId(@PathVariable Long id) {
         TrasladoResponseDTO respuesta = trasladoService.obtenerPorId(id);
@@ -37,7 +39,8 @@ public class TrasladoController {
     }
 
     @Operation(summary = "Listar todos los traslados",
-            description = "Obtiene la lista completa de todos los traslados registrados en el sistema.")
+            description = "Obtiene la lista completa de todos los traslados registrados en el sistema.",
+            tags={"Traslados"})
     @GetMapping
     public ResponseEntity<List<TrasladoResponseDTO>> listarTodos() {
         List<TrasladoResponseDTO> lista = trasladoService.listarTodos();
@@ -45,7 +48,8 @@ public class TrasladoController {
     }
 
     @Operation(summary = "Actualizar traslado",
-            description = "Actualiza completamente la información de un traslado existente por su ID.")
+            description = "Actualiza completamente la información de un traslado existente por su ID.",
+            tags={"Traslados"})
     @PutMapping("/{id}")
     public ResponseEntity<TrasladoResponseDTO> actualizar(
             @PathVariable Long id,
@@ -56,7 +60,8 @@ public class TrasladoController {
     }
 
     @Operation(summary = "Cambiar estado de traslado",
-            description = "Modifica únicamente el estado de un traslado específico mediante su ID y el nuevo estado.")
+            description = "Modifica únicamente el estado de un traslado específico mediante su ID y el nuevo estado.",
+            tags={"Traslados"})
     @PatchMapping("/{id}/estado")
     public ResponseEntity<TrasladoResponseDTO> cambiarEstado(
             @PathVariable Long id,
@@ -65,7 +70,8 @@ public class TrasladoController {
     }
 
     @Operation(summary = "Eliminar traslado",
-            description = "Elimina permanentemente un traslado del sistema por su identificador único.")
+            description = "Elimina permanentemente un traslado del sistema por su identificador único.",
+            tags={"Traslados"})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         trasladoService.eliminar(id);

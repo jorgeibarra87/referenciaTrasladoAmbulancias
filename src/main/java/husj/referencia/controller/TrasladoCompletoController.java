@@ -21,7 +21,8 @@ public class TrasladoCompletoController {
     private final TrasladoCompletoService trasladoCompletoService;
 
     @Operation(summary = "Listar traslados completos",
-            description = "Obtiene la lista completa de todos los traslados completos registrados en el sistema.")
+            description = "Obtiene la lista completa de todos los traslados completos registrados en el sistema.",
+            tags={"Traslados Información Completa"})
     @GetMapping
     public ResponseEntity<List<TrasladoCompletoResponseDTO>> listarTodos() {
         return ResponseEntity.ok(trasladoCompletoService.listarTodos());
