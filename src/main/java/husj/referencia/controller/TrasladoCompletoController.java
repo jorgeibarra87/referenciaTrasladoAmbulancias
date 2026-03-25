@@ -2,6 +2,7 @@ package husj.referencia.controller;
 
 import husj.referencia.model.dto.response.TrasladoCompletoResponseDTO;
 import husj.referencia.service.TrasladoCompletoService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,8 @@ public class TrasladoCompletoController {
 
     private final TrasladoCompletoService trasladoCompletoService;
 
+    @Operation(summary = "Listar traslados completos",
+            description = "Obtiene la lista completa de todos los traslados completos registrados en el sistema.")
     @GetMapping
     public ResponseEntity<List<TrasladoCompletoResponseDTO>> listarTodos() {
         return ResponseEntity.ok(trasladoCompletoService.listarTodos());

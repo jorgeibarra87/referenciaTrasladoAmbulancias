@@ -24,5 +24,6 @@ public class CuentaMedicaResponseDTO {
     private String responsableAuditoria;
     private String observaciones;
     private  String estado;
+    private LocalDateTime fechaEgreso;
 }
 

@@ -28,4 +28,6 @@ public class CuentaMedica {
     private String observaciones;
     @Column(name = "ESTADO", nullable = false)
     private String estado;
+    @Column(name = "FECHA_EGRESO")
+    private LocalDateTime fechaEgreso;
 }

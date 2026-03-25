@@ -36,6 +36,7 @@ public class CuentaMedicaServiceImpl implements CuentaMedicaService {
         entity.setResponsableAuditoria(request.getResponsableAuditoria());
         entity.setObservaciones(request.getObservaciones());
         entity.setTraslado(traslado);
+        entity.setFechaEgreso(request.getFechaEgreso());
 
         CuentaMedica guardada = cuentaMedicaRepository.save(entity);
         return modelMapper.map(guardada, CuentaMedicaResponseDTO.class);
@@ -71,6 +72,7 @@ public class CuentaMedicaServiceImpl implements CuentaMedicaService {
         entity.setServicioEgreso(request.getServicioEgreso());
         entity.setResponsableAuditoria(request.getResponsableAuditoria());
         entity.setObservaciones(request.getObservaciones());
+        entity.setFechaEgreso(request.getFechaEgreso());
 
         CuentaMedica actualizada = cuentaMedicaRepository.save(entity);
         return modelMapper.map(actualizada, CuentaMedicaResponseDTO.class);

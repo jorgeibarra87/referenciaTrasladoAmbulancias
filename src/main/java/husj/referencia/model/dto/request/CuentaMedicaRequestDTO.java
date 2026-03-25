@@ -26,4 +26,5 @@ public class CuentaMedicaRequestDTO {
 
     private String observaciones;
     private String estado;
+    private LocalDateTime fechaEgreso;
 }
